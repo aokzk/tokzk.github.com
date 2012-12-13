@@ -1,16 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
+  <title><![CDATA[Rework]]></title>
   <link href="http://tokzk.github.com/atom.xml" rel="self"/>
   <link href="http://tokzk.github.com/"/>
-  <updated>2012-12-12T16:17:51+09:00</updated>
+  <updated>2012-12-13T21:16:20+09:00</updated>
   <id>http://tokzk.github.com/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[tokzk]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress を使ってみよう]]></title>
+    <link href="http://tokzk.github.com/blog/2012/12/13/how-to-use-octopress/"/>
+    <updated>2012-12-13T21:14:00+09:00</updated>
+    <id>http://tokzk.github.com/blog/2012/12/13/how-to-use-octopress</id>
+    <content type="html"><![CDATA[<h2>Octopressとは？</h2>
+
+<p>Jekyllを使ったデザインされたブログのためのフレームワークなのだそうだ。</p>
+
+<p>コンソールとテキストファイル（Markdown)で、公開が素早くできるのでそういうのが得意な人向け。以下、参考にしたサイト。</p>
+
+<ul>
+<li><a href="http://octopress.org/">Octopress</a></li>
+<li><a href="http://m.igrs.jp/blog/2011/12/17/switching-to-octopress/">switching to octopress - m.igrs.jp</a></li>
+<li><a href="http://www.sankitch.me/blog/2012/05/05/build-octopress-on-github-dropbox/">Octopress + Github Pages + Dropbox でブログを構築 - M-x sankitch-info</a></li>
+<li><a href="http://qiita.com/tags/Octopress">Octopress - Qiita</a></li>
+</ul>
+
+
+<h2>Themeの変更</h2>
+
+<p>最初のテーマが中々カッコいいのでそのままでも良いんだけど、ちょっと変えてみたい！
+<a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">3rd Party Octopress Themes</a> を参考に、以下のようにすれば簡単にテーマを切り替えられる。</p>
+
+<pre><code>$ cd octopress
+$ git clone git://github.com/amelandri/darkstripes.git .themes/darkstripes
+$ rake install['darkstripes']
+$ rake generate
+</code></pre>
+
+<p><a href="http://pow.cx/">Pow</a>なんかが入ってると open http://octopress.dev/ などで確認できる。</p>
+
+<h2>デザインの調整</h2>
+
+<h3>自動生成</h3>
+
+<p>まずはちょいちょい変えていくので、毎回 <code>rake generate</code>をするのはめんどい。
+rake タスクを確認してみると、<code>rake watch</code> というのがある。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake -T
+</span><span class='line'>rake clean                     <span class="c"># Clean out caches: .pygments-cache, .gist-cache, .sa...</span>
+</span><span class='line'>rake copydot<span class="o">[</span><span class="nb">source</span>,dest<span class="o">]</span>      <span class="c"># copy dot files for deployment</span>
+</span><span class='line'>rake deploy                    <span class="c"># Default deploy task</span>
+</span><span class='line'>rake gen_deploy                <span class="c"># Generate website and deploy</span>
+</span><span class='line'>rake generate                  <span class="c"># Generate jekyll site</span>
+</span><span class='line'>rake install<span class="o">[</span>theme<span class="o">]</span>            <span class="c"># Initial setup for Octopress: copies the default the...</span>
+</span><span class='line'>rake integrate                 <span class="c"># Move all stashed posts back into the posts director...</span>
+</span><span class='line'>rake isolate<span class="o">[</span>filename<span class="o">]</span>         <span class="c"># Move all other posts than the one currently being w...</span>
+</span><span class='line'>rake list                      <span class="c"># list tasks</span>
+</span><span class='line'>rake new_page<span class="o">[</span>filename<span class="o">]</span>        <span class="c"># Create a new page in source/(filename)/index.markdown</span>
+</span><span class='line'>rake new_post<span class="o">[</span>title<span class="o">]</span>           <span class="c"># Begin a new post in source/_posts</span>
+</span><span class='line'>rake preview                   <span class="c"># preview the site in a web browser</span>
+</span><span class='line'>rake push                      <span class="c"># deploy public directory to github pages</span>
+</span><span class='line'>rake rsync                     <span class="c"># Deploy website via rsync</span>
+</span><span class='line'>rake set_root_dir<span class="o">[</span>dir<span class="o">]</span>         <span class="c"># Update configurations to support publishing to root...</span>
+</span><span class='line'>rake setup_github_pages<span class="o">[</span>repo<span class="o">]</span>  <span class="c"># Set up _deploy folder and deploy branch for Github ...</span>
+</span><span class='line'>rake update_source<span class="o">[</span>theme<span class="o">]</span>      <span class="c"># Move source to source.old, install source theme upd...</span>
+</span><span class='line'>rake update_style<span class="o">[</span>theme<span class="o">]</span>       <span class="c"># Move sass to sass.old, install sass theme updates, ...</span>
+</span><span class='line'>rake watch                     <span class="c"># Watch the site and regenerate when it changes</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>これで、ファイルを変更するたびにgenerateされるので確認しながらスタイルの変更ができる。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake watch
+</span><span class='line'>Starting to watch <span class="nb">source </span>with Jekyll and Compass.
+</span><span class='line'>Configuration from /Users/tokzk/octopress/_config.yml
+</span><span class='line'>Auto-regenerating enabled: <span class="nb">source</span> -&gt; public
+</span><span class='line'><span class="o">[</span>2012-12-13 20:46:30<span class="o">]</span> regeneration: 97 files changed
+</span><span class='line'>
+</span><span class='line'>Dear developers making use of FSSM in your projects,
+</span><span class='line'>FSSM is essentially dead at this point. Further development will
+</span><span class='line'>be taking place in the new shared guard/listen project. Please
+</span><span class='line'><span class="nb">let </span>us know <span class="k">if </span>you need <span class="nb">help </span>transitioning! ^_^b
+</span><span class='line'>- Travis Tilley
+</span><span class='line'>
+</span><span class='line'>&gt;&gt;&gt; Compass is watching <span class="k">for </span>changes. Press Ctrl-C to Stop.
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>これで、ファイルを修正したらブラウザをリロードするだけで確認できる。</p>
+
+<h3>CSSの変更</h3>
+
+<p>List のインデントが外に出るのでちょっと気になる。
+それを変更してみよう。</p>
+
+<p><code>sass/custom/_styles.scss</code> を変更する。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="c1">// This File is imported last, and will override other styles in the cascade</span>
+</span><span class='line'><span class="c1">// Add styles here to make changes without digging in too much</span>
+</span><span class='line'>
+</span><span class='line'><span class="nn">#content</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nt">ol</span><span class="o">,</span> <span class="nt">ul</span> <span class="p">{</span>
+</span><span class='line'>    <span class="na">margin-left</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.3</span><span class="kt">em</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>背景画像の変更</h3>
+
+<p><code>source/images/line-tile.png</code> を置き換えると背景の画像が変わります。
+良さげなテクスチャを探して置き換えてみよう！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Hello World.]]></title>
+    <link href="http://tokzk.github.com/blog/2012/12/12/hello-world/"/>
+    <updated>2012-12-12T17:20:00+09:00</updated>
+    <id>http://tokzk.github.com/blog/2012/12/12/hello-world</id>
+    <content type="html"><![CDATA[<p>ブログを書いてみるよ</p>
+]]></content>
+  </entry>
   
 </feed>

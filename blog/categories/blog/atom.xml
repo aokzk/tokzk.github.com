@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: blog | Rework]]></title>
+  <link href="http://tokzk.github.com/blog/categories/blog/atom.xml" rel="self"/>
+  <link href="http://tokzk.github.com/"/>
+  <updated>2012-12-13T21:16:20+09:00</updated>
+  <id>http://tokzk.github.com/</id>
+  <author>
+    <name><![CDATA[tokzk]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress を使ってみよう]]></title>
+    <link href="http://tokzk.github.com/blog/2012/12/13/how-to-use-octopress/"/>
+    <updated>2012-12-13T21:14:00+09:00</updated>
+    <id>http://tokzk.github.com/blog/2012/12/13/how-to-use-octopress</id>
+    <content type="html"><![CDATA[<h2>Octopressとは？</h2>
+
+<p>Jekyllを使ったデザインされたブログのためのフレームワークなのだそうだ。</p>
+
+<p>コンソールとテキストファイル（Markdown)で、公開が素早くできるのでそういうのが得意な人向け。以下、参考にしたサイト。</p>
+
+<ul>
+<li><a href="http://octopress.org/">Octopress</a></li>
+<li><a href="http://m.igrs.jp/blog/2011/12/17/switching-to-octopress/">switching to octopress - m.igrs.jp</a></li>
+<li><a href="http://www.sankitch.me/blog/2012/05/05/build-octopress-on-github-dropbox/">Octopress + Github Pages + Dropbox でブログを構築 - M-x sankitch-info</a></li>
+<li><a href="http://qiita.com/tags/Octopress">Octopress - Qiita</a></li>
+</ul>
+
+
+<h2>Themeの変更</h2>
+
+<p>最初のテーマが中々カッコいいのでそのままでも良いんだけど、ちょっと変えてみたい！
+<a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">3rd Party Octopress Themes</a> を参考に、以下のようにすれば簡単にテーマを切り替えられる。</p>
+
+<pre><code>$ cd octopress
+$ git clone git://github.com/amelandri/darkstripes.git .themes/darkstripes
+$ rake install['darkstripes']
+$ rake generate
+</code></pre>
+
+<p><a href="http://pow.cx/">Pow</a>なんかが入ってると open http://octopress.dev/ などで確認できる。</p>
+
+<h2>デザインの調整</h2>
+
+<h3>自動生成</h3>
+
+<p>まずはちょいちょい変えていくので、毎回 <code>rake generate</code>をするのはめんどい。
+rake タスクを確認してみると、<code>rake watch</code> というのがある。</p>
+
+<p><code>bash
+$ rake -T
+rake clean                     # Clean out caches: .pygments-cache, .gist-cache, .sa...
+rake copydot[source,dest]      # copy dot files for deployment
+rake deploy                    # Default deploy task
+rake gen_deploy                # Generate website and deploy
+rake generate                  # Generate jekyll site
+rake install[theme]            # Initial setup for Octopress: copies the default the...
+rake integrate                 # Move all stashed posts back into the posts director...
+rake isolate[filename]         # Move all other posts than the one currently being w...
+rake list                      # list tasks
+rake new_page[filename]        # Create a new page in source/(filename)/index.markdown
+rake new_post[title]           # Begin a new post in source/_posts
+rake preview                   # preview the site in a web browser
+rake push                      # deploy public directory to github pages
+rake rsync                     # Deploy website via rsync
+rake set_root_dir[dir]         # Update configurations to support publishing to root...
+rake setup_github_pages[repo]  # Set up _deploy folder and deploy branch for Github ...
+rake update_source[theme]      # Move source to source.old, install source theme upd...
+rake update_style[theme]       # Move sass to sass.old, install sass theme updates, ...
+rake watch                     # Watch the site and regenerate when it changes
+</code></p>
+
+<p>これで、ファイルを変更するたびにgenerateされるので確認しながらスタイルの変更ができる。</p>
+
+<p>```bash
+$ rake watch
+Starting to watch source with Jekyll and Compass.
+Configuration from /Users/tokzk/octopress/_config.yml
+Auto-regenerating enabled: source -> public
+[2012-12-13 20:46:30] regeneration: 97 files changed</p>
+
+<p>Dear developers making use of FSSM in your projects,
+FSSM is essentially dead at this point. Further development will
+be taking place in the new shared guard/listen project. Please
+let us know if you need help transitioning! ^_<sup>b</sup>
+- Travis Tilley</p>
+
+<blockquote><blockquote><blockquote><p>Compass is watching for changes. Press Ctrl-C to Stop.
+```</p></blockquote></blockquote></blockquote>
+
+<p>これで、ファイルを修正したらブラウザをリロードするだけで確認できる。</p>
+
+<h3>CSSの変更</h3>
+
+<p>List のインデントが外に出るのでちょっと気になる。
+それを変更してみよう。</p>
+
+<p><code>sass/custom/_styles.scss</code> を変更する。</p>
+
+<p>```scss
+// This File is imported last, and will override other styles in the cascade
+// Add styles here to make changes without digging in too much</p>
+
+<h1>content {</h1>
+
+<p>  ol, ul {</p>
+
+<pre><code>margin-left: 1.3em;
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<h3>背景画像の変更</h3>
+
+<p><code>source/images/line-tile.png</code> を置き換えると背景の画像が変わります。
+良さげなテクスチャを探して置き換えてみよう！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Hello World.]]></title>
+    <link href="http://tokzk.github.com/blog/2012/12/12/hello-world/"/>
+    <updated>2012-12-12T17:20:00+09:00</updated>
+    <id>http://tokzk.github.com/blog/2012/12/12/hello-world</id>
+    <content type="html"><![CDATA[<p>ブログを書いてみるよ</p>
+]]></content>
+  </entry>
+  
+</feed>
